@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <IsPackable>true</IsPackable>
         <DevelopmentDependency>true</DevelopmentDependency>
         <PackageId>GamerTalk.NodeJs.MSBuild</PackageId>
         <Authors>Kieran Foot</Authors>
@@ -19,13 +20,6 @@
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
-            <PrivateAssets>all</PrivateAssets>
-            <Version>3.6.143</Version>
-        </PackageReference>
-    </ItemGroup>
     
     <ItemGroup>
         <Content Include="..\..\README.md" Pack="true" PackagePath="\" />
