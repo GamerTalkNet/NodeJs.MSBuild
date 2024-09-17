@@ -21,15 +21,21 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <NoPackageAnalysis>true</NoPackageAnalysis>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <Content Include="..\..\README.md" Pack="true" PackagePath="\" />
-        
-        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="build" />
-        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="buildMultiTargeting" />
-        
-        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="build" />
-        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="buildMultiTargeting" />
+        <Content Include="..\..\README.md" Pack="true" PackagePath="\"/>
+
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="build"/>
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="buildMultiTargeting"/>
+
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="build"/>
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="buildMultiTargeting"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>
