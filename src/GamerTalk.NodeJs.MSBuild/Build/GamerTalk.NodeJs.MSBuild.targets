@@ -1,7 +1,5 @@
 <Project>
 
-    <Import Project="./NodeJS.props" />
-
     <Target Name="CheckIfNodeJSIsInstalled">
         <PropertyGroup>
             <!-- Send the output to null to keep the log clean -->
@@ -10,21 +8,59 @@
         </PropertyGroup>
 
         <Exec Command="$(NodeTestCommand)" IgnoreExitCode="true" EchoOff="true">
-            <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
+            <Output TaskParameter="ExitCode" PropertyName="ExitCode"/>
         </Exec>
 
-        <Error Text="Node.js is not installed!" Condition="$(ExitCode) != 0" />
+        <Error Text="Node.js is not installed!" Condition="$(ExitCode) != 0"/>
     </Target>
 
     <!-- Creates a default empty package if none exists in the projects directory -->
     <Target Name="CreateDefaultPackage" BeforeTargets="Build" AfterTargets="CheckIfNodeJSIsInstalled"
             Condition="!Exists('package.json')" Outputs="package.json">
 
-        <Message Text="Creating default package.json ..." Importance="high" />
+        <Message Text="Creating default package.json ..." Importance="high"/>
 
-        <Exec Condition="$(OS) == Windows_NT" Command="npm init -y &gt; NUL" EchoOff="true" />
-        <Exec Condition="$(OS) != Windows_NT" Command="npm init -y &gt; /dev/null" EchoOff="true" />
+        <Exec Condition="$(OS) == Windows_NT" Command="npm init -y &gt; NUL" EchoOff="true"/>
+        <Exec Condition="$(OS) != Windows_NT" Command="npm init -y &gt; /dev/null" EchoOff="true"/>
 
     </Target>
-    
+
+    <Target Name="InstallNodePackages" BeforeTargets="Build" AfterTargets="CreateDefaultPackage"
+            Inputs="@NodePackageReference" Outputs="node_modules\%(NodePackageReference.Identity)\package.json">
+
+        <PropertyGroup>
+            <PackageName>%(NodePackageReference.Identity)</PackageName>
+            <PackageVersion Condition=" '%(NodePackageReference.Version)' == ''">latest</PackageVersion>
+            <PackageVersion Condition=" '%(NodePackageReference.Version)' != ''">%(NodePackageReference.Version)</PackageVersion>
+        </PropertyGroup>
+
+        <Message Text="Checking if package '$(PackageName)%40$(PackageVersion)' is installed...." Importance="low"/>
+
+        <Exec Command="$(NodePackageManager) list $(PackageName) --depth=0" IgnoreExitCode="true" EchoOff="true"
+              StandardOutputImportance="low" ConsoleToMsBuild="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="NpmListOutput"/>
+        </Exec>
+
+        <PropertyGroup>
+            <InstallNodePackage Condition="!$(NpmListOutput.Contains('$(PackageName)@'))">true</InstallNodePackage>
+            <InstallNodePackage Condition="$(NpmListOutput.Contains('$(PackageName)@'))">false</InstallNodePackage>
+        </PropertyGroup>
+        
+        <PropertyGroup>
+            <InstallNodePackageCommand Condition="'$(InstallNodePackage)' == 'true' AND '%(NodePackageReference.Version)' == ''">
+                $(NodePackageManager) install $(PackageName) -D --no-audit
+            </InstallNodePackageCommand>
+            <InstallNodePackageCommand Condition="'$(InstallNodePackage)' == 'true' AND '%(NodePackageReference.Version)' != ''">
+                $(NodePackageManager) install $(PackageName)%40$(PackageVersion) -D --no-audit
+            </InstallNodePackageCommand>
+        </PropertyGroup>
+        
+        <Message Text="Installing $(PackageName)%40$(PackageVersion) ..." Importance="high" 
+                 Condition="'$(InstallNodePackage)' == 'true'" />
+        <Exec Command="$(InstallNodePackageCommand)" Condition="'$(InstallNodePackage)' == 'true'" 
+              IgnoreExitCode="false" EchoOff="true" StandardOutputImportance="low"/>
+        
+    </Target>
+
+
 </Project>
