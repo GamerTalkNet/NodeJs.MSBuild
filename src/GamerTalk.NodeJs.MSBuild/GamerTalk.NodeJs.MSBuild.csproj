@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <DevelopmentDependency>true</DevelopmentDependency>
+        <PackageId>GamerTalk.NodeJs.MSBuild</PackageId>
+        <Authors>Kieran Foot</Authors>
+        <Description>Package adding support for Node.Js to MSBuild.</Description>
+        <PackageTags>Node;NodeJS;MSBuild</PackageTags>
+        <Copyright>Copyright 2024 (c) GamerTalk.Net</Copyright>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/GamerTalkNet/NodeJs.MSBuild</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+
+</Project>
