@@ -1,3 +1,30 @@
 <Project>
 
+    <Import Project="./NodeJS.props" />
+
+    <Target Name="CheckIfNodeJSIsInstalled">
+        <PropertyGroup>
+            <!-- Send the output to null to keep the log clean -->
+            <NodeTestCommand Condition="$(OS) == Windows_NT">node -v &gt; NUL</NodeTestCommand>
+            <NodeTestCommand Condition="$(OS) != Windows_NT">node -v &gt; /dev/null</NodeTestCommand>
+        </PropertyGroup>
+
+        <Exec Command="$(NodeTestCommand)" IgnoreExitCode="true" EchoOff="true">
+            <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
+        </Exec>
+
+        <Error Text="Node.js is not installed!" Condition="$(ExitCode) != 0" />
+    </Target>
+
+    <!-- Creates a default empty package if none exists in the projects directory -->
+    <Target Name="CreateDefaultPackage" BeforeTargets="Build" AfterTargets="CheckIfNodeJSIsInstalled"
+            Condition="!Exists('package.json')" Outputs="package.json">
+
+        <Message Text="Creating default package.json ..." Importance="high" />
+
+        <Exec Condition="$(OS) == Windows_NT" Command="npm init -y &gt; NUL" EchoOff="true" />
+        <Exec Condition="$(OS) != Windows_NT" Command="npm init -y &gt; /dev/null" EchoOff="true" />
+
+    </Target>
+    
 </Project>

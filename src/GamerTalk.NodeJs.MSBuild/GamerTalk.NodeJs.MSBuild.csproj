@@ -23,6 +23,12 @@
     
     <ItemGroup>
         <Content Include="..\..\README.md" Pack="true" PackagePath="\" />
+        
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="build" />
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="buildMultiTargeting" />
+        
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="build" />
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="buildMultiTargeting" />
     </ItemGroup>
 
 </Project>

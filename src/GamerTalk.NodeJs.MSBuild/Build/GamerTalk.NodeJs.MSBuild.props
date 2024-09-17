@@ -1,3 +1,13 @@
 <Project>
+
+    <ItemGroup>
+        <AvailableItemName Include="NodeJs"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <NodePackageManager Condition=" '$(NodePackageManager)'=='' ">npm</NodePackageManager>
+        <NodeExecutor Condition=" '$(NodeExecutor)'=='' ">npx</NodeExecutor>
+        <NodeJsImported>true</NodeJsImported>
+    </PropertyGroup>
     
 </Project>
