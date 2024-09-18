@@ -26,5 +26,7 @@ jobs:
       run: dotnet restore
     - name: Pack
       run: dotnet pack -c release -o Packages --no-restore
-    - name: Push to NuGet
+    - name: Push to GitHub
+      run: dotnet nuget push 
+    - name: Push to NuGet Packages/*.nupkg -k ${{ secrets.GITHUB_TOKEN }}  -s https://nuget.pkg.github.com/GamerTalkNet/index.json
       run: dotnet nuget push Packages/*.nupkg -k ${{ secrets.NUGET_APIKEY }} -s https://api.nuget.org/v3/index.json
