@@ -10,4 +10,10 @@
         <NodeJsImported>true</NodeJsImported>
     </PropertyGroup>
     
+    <ItemGroup>
+        <NodePackageReference Update="@(NodePackageReference)">
+            <Visible >false</Visible>
+        </NodePackageReference>
+    </ItemGroup>
+    
 </Project>
