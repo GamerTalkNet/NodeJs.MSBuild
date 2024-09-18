@@ -27,8 +27,6 @@ jobs:
     - name: Pack
       run: dotnet pack -c release -o Packages --no-restore
     - name: Push to GitHub
-      run: |
-        dotnet nuget add source --username KieranFoot --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/GamerTalkNet/index.json"
-        dotnet nuget push Packages/*.nupkg -s github
+      run: dotnet nuget push Packages/*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://api.nuget.org/v3/index.json
     - name: Push to NuGet 
       run: dotnet nuget push Packages/*.nupkg -k ${{ secrets.NUGET_APIKEY }} -s https://api.nuget.org/v3/index.json
