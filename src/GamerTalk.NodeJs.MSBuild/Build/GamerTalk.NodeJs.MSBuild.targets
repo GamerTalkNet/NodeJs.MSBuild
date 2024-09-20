@@ -16,7 +16,7 @@
 
     <!-- Creates a default empty package if none exists in the projects directory -->
     <Target Name="CreateDefaultPackage" BeforeTargets="Build" AfterTargets="CheckIfNodeJSIsInstalled"
-            Condition="!Exists('package.json')" Outputs="package.json">
+            Condition="!Exists('package.json') AND @(NodePackageReference->Count()) &gt; 0" Outputs="package.json">
 
         <Message Text="Creating default package.json ..." Importance="high"/>
 
@@ -26,12 +26,15 @@
     </Target>
 
     <Target Name="InstallNodePackages" BeforeTargets="Build" AfterTargets="CreateDefaultPackage"
-            Inputs="@NodePackageReference" Outputs="node_modules\%(NodePackageReference.Identity)\package.json">
+            Inputs="@NodePackageReference" Outputs="node_modules\%(NodePackageReference.Identity)\package.json"
+            Condition="@(NodePackageReference->Count()) &gt; 0">
 
         <PropertyGroup>
             <PackageName>%(NodePackageReference.Identity)</PackageName>
             <PackageVersion Condition=" '%(NodePackageReference.Version)' == ''">latest</PackageVersion>
             <PackageVersion Condition=" '%(NodePackageReference.Version)' != ''">%(NodePackageReference.Version)</PackageVersion>
+            <PackageType Condition=" '%(NodePackageReference.Type)' == 'dev'">dev</PackageType>
+            <PackageType Condition=" '%(NodePackageReference.Type)' == 'dev'">dev</PackageType>
         </PropertyGroup>
 
         <Message Text="Checking if package '$(PackageName)%40$(PackageVersion)' is installed...." Importance="low"/>
@@ -45,22 +48,28 @@
             <InstallNodePackage Condition="!$(NpmListOutput.Contains('$(PackageName)@'))">true</InstallNodePackage>
             <InstallNodePackage Condition="$(NpmListOutput.Contains('$(PackageName)@'))">false</InstallNodePackage>
         </PropertyGroup>
-        
+
         <PropertyGroup>
             <InstallNodePackageCommand Condition="'$(InstallNodePackage)' == 'true' AND '%(NodePackageReference.Version)' == ''">
-                $(NodePackageManager) install $(PackageName) -D --no-audit
+                $(NodePackageManager) install $(PackageName) --no-audit
             </InstallNodePackageCommand>
             <InstallNodePackageCommand Condition="'$(InstallNodePackage)' == 'true' AND '%(NodePackageReference.Version)' != ''">
+                $(NodePackageManager) install $(PackageName)%40$(PackageVersion) --no-audit
+            </InstallNodePackageCommand>
+            <InstallNodePackageCommand Condition="'$(InstallNodePackage)' == 'true' AND '%(NodePackageReference.Version)' == '' AND '%(NodePackageReference.Type)' == 'dev'">
+                $(NodePackageManager) install $(PackageName) -D --no-audit
+            </InstallNodePackageCommand>
+            <InstallNodePackageCommand Condition="'$(InstallNodePackage)' == 'true' AND '%(NodePackageReference.Version)' != '' AND '%(NodePackageReference.Type)' == 'dev'">
                 $(NodePackageManager) install $(PackageName)%40$(PackageVersion) -D --no-audit
             </InstallNodePackageCommand>
         </PropertyGroup>
-        
-        <Message Text="Installing $(PackageName)%40$(PackageVersion) ..." Importance="high" 
-                 Condition="'$(InstallNodePackage)' == 'true'" />
-        <Exec Command="$(InstallNodePackageCommand)" Condition="'$(InstallNodePackage)' == 'true'" 
-              IgnoreExitCode="false" EchoOff="true" StandardOutputImportance="low" 
+
+        <Message Text="Installing $(PackageName)%40$(PackageVersion) ..." Importance="high"
+                 Condition="'$(InstallNodePackage)' == 'true'"/>
+        <Exec Command="$(InstallNodePackageCommand)" Condition="'$(InstallNodePackage)' == 'true'"
+              IgnoreExitCode="false" EchoOff="true" StandardOutputImportance="low"
               WorkingDirectory="$(ProjectDir)"/>
-        
+
     </Target>
 
 </Project>
