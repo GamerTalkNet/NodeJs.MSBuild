@@ -20,8 +20,8 @@
 
         <Message Text="Creating default package.json ..." Importance="high"/>
 
-        <Exec Condition="$(OS) == Windows_NT" Command="npm init -y &gt; NUL" EchoOff="true"/>
-        <Exec Condition="$(OS) != Windows_NT" Command="npm init -y &gt; /dev/null" EchoOff="true"/>
+        <Exec Condition="$(OS) == Windows_NT" Command="npm init -y &gt; NUL" EchoOff="true" WorkingDirectory="$(ProjectDir)"/>
+        <Exec Condition="$(OS) != Windows_NT" Command="npm init -y &gt; /dev/null" EchoOff="true" WorkingDirectory="$(ProjectDir)"/>
 
     </Target>
 
@@ -37,7 +37,7 @@
         <Message Text="Checking if package '$(PackageName)%40$(PackageVersion)' is installed...." Importance="low"/>
 
         <Exec Command="$(NodePackageManager) list $(PackageName) --depth=0" IgnoreExitCode="true" EchoOff="true"
-              StandardOutputImportance="low" ConsoleToMsBuild="true">
+              StandardOutputImportance="low" ConsoleToMsBuild="true" WorkingDirectory="$(ProjectDir)">
             <Output TaskParameter="ConsoleOutput" PropertyName="NpmListOutput"/>
         </Exec>
 
@@ -58,7 +58,8 @@
         <Message Text="Installing $(PackageName)%40$(PackageVersion) ..." Importance="high" 
                  Condition="'$(InstallNodePackage)' == 'true'" />
         <Exec Command="$(InstallNodePackageCommand)" Condition="'$(InstallNodePackage)' == 'true'" 
-              IgnoreExitCode="false" EchoOff="true" StandardOutputImportance="low"/>
+              IgnoreExitCode="false" EchoOff="true" StandardOutputImportance="low" 
+              WorkingDirectory="$(ProjectDir)"/>
         
     </Target>
 
