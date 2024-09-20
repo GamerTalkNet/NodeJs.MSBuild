@@ -23,7 +23,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="..\..\README.md" Pack="true" PackagePath="\"/>
+        <Content Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
 
         <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="build"/>
         <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="buildMultiTargeting"/>
