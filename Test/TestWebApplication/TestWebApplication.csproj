@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
     
     <ItemGroup>
@@ -11,7 +12,7 @@
         <NodePackageReference Include="fabric" Version="latest" />
     </ItemGroup>
 
-    <Import Project="..\GamerTalk.NodeJs.MSBuild\Build\GamerTalk.NodeJs.MSBuild.props" />
-    <Import Project="..\GamerTalk.NodeJs.MSBuild\Build\GamerTalk.NodeJs.MSBuild.targets" />
+    <Import Project="..\..\src\GamerTalk.NodeJs.MSBuild\Build\GamerTalk.NodeJs.MSBuild.props" />
+    <Import Project="..\..\src\GamerTalk.NodeJs.MSBuild\Build\GamerTalk.NodeJs.MSBuild.targets" />
     
 </Project>

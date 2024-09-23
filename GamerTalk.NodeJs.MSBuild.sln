@@ -20,7 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApplication", "src\TestWebApplication\TestWebApplication.csproj", "{7F544E5A-02E9-4F5C-BF24-7C3888F3870B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FE0A5538-2970-4717-A230-0E1914EEDCCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApplication", "Test\TestWebApplication\TestWebApplication.csproj", "{B898E116-684B-4F5F-9AAC-D42385B29065}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,13 +37,13 @@ Global
 		{FB32DF9F-3B7F-4940-B22A-5BC32B772DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB32DF9F-3B7F-4940-B22A-5BC32B772DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB32DF9F-3B7F-4940-B22A-5BC32B772DEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F544E5A-02E9-4F5C-BF24-7C3888F3870B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F544E5A-02E9-4F5C-BF24-7C3888F3870B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F544E5A-02E9-4F5C-BF24-7C3888F3870B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F544E5A-02E9-4F5C-BF24-7C3888F3870B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B898E116-684B-4F5F-9AAC-D42385B29065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B898E116-684B-4F5F-9AAC-D42385B29065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B898E116-684B-4F5F-9AAC-D42385B29065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B898E116-684B-4F5F-9AAC-D42385B29065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FB32DF9F-3B7F-4940-B22A-5BC32B772DEE} = {3BF56EFA-D0A0-462C-8AAF-0E579578FE1E}
-		{7F544E5A-02E9-4F5C-BF24-7C3888F3870B} = {3BF56EFA-D0A0-462C-8AAF-0E579578FE1E}
+		{B898E116-684B-4F5F-9AAC-D42385B29065} = {FE0A5538-2970-4717-A230-0E1914EEDCCC}
 	EndGlobalSection
 EndGlobal

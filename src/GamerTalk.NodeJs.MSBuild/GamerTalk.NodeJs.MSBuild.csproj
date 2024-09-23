@@ -20,21 +20,26 @@
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <NoPackageAnalysis>true</NoPackageAnalysis>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
         <Content Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
 
         <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="build"/>
-        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" PackagePath="buildMultiTargeting"/>
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.props" Pack="true" 
+                 PackagePath="buildMultiTargeting" Visible="false"/>
 
         <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="build"/>
-        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" PackagePath="buildMultiTargeting"/>
+        <Content Include="Build\GamerTalk.NodeJs.MSBuild.targets" Pack="true" 
+                 PackagePath="buildMultiTargeting" Visible="false"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
-            <PrivateAssets>all</PrivateAssets>
+        <PackageReference Include="Microsoft.SourceLink.GitHub"
+                          Version="8.0.0"
+                          PrivateAssets="all">
         </PackageReference>
     </ItemGroup>
 
